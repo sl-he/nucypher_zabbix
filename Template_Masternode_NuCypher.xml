@@ -1,0 +1,838 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.4</version>
+    <date>2020-02-13T17:54:03Z</date>
+    <groups>
+        <group>
+            <name>SLHE NU_VPS</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template Masternode NuCypher</template>
+            <name>Template Masternode NuCypher</name>
+            <templates>
+                <template>
+                    <name>Template Module FAST ICMP Ping</name>
+                </template>
+                <template>
+                    <name>Template OS Linux by Zabbix agent</name>
+                </template>
+            </templates>
+            <groups>
+                <group>
+                    <name>SLHE NU_VPS</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Nucypher</name>
+                </application>
+                <application>
+                    <name>Service Status</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>NuCypher: Dir Size: data_backup</name>
+                    <key>data_backup.dirsize</key>
+                    <delay>30</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Storage</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Geth Block Height</name>
+                    <key>geth.blockheight</key>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{delta(#15,0)}=0</expression>
+                            <name>NuCypher: Geth Stucks</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>NuCypher: Dir Size: Geth</name>
+                    <key>geth.dirsize</key>
+                    <delay>30</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Storage</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Ursula 9151 Port Listening</name>
+                    <key>net.tcp.listen[9151]</key>
+                    <delay>15</delay>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Service state</name>
+                    </valuemap>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(#1,0)}=0</expression>
+                            <name>NuCypher: Ursula 9151 Port Is Down</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>NuCypher: Ursula 9151 Port Performance</name>
+                    <type>SIMPLE</type>
+                    <key>net.tcp.service.perf[tcp,,9151]</key>
+                    <delay>15</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>ms</units>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>1000</params>
+                        </step>
+                    </preprocessing>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(#1,0)}&gt;500</expression>
+                            <name>NuCypher: Ursula Is Very Slow</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>NuCypher: Ursula 9151 Port Availability</name>
+                    <type>SIMPLE</type>
+                    <key>net.tcp.service[tcp,,9151]</key>
+                    <delay>15</delay>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Service state</name>
+                    </valuemap>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(#1,0)}=0</expression>
+                            <name>NuCypher: Ursula 9151 Port Is Not Available</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>NuCypher: Nodes Active</name>
+                    <key>nucypher.nodes.active</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Nodes Inactive</name>
+                    <key>nucypher.nodes.inactive</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Nodes Pending</name>
+                    <key>nucypher.nodes.pending</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Nodes Total</name>
+                    <key>nucypher.nodes.total</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Period</name>
+                    <key>nucypher.period</key>
+                    <delay>15m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Tokens Total (Active Stakes)</name>
+                    <key>nucypher.tokens.activetotal</key>
+                    <delay>15m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Tokens Rewards</name>
+                    <key>nucypher.tokens.diff</key>
+                    <delay>15m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(#1,0)}=0</expression>
+                            <name>NuCypher: Reward Received</name>
+                            <priority>INFO</priority>
+                            <manual_close>YES</manual_close>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>NuCypher: Tokens Owned</name>
+                    <key>nucypher.tokens.owned</key>
+                    <delay>15m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Tokens Staked</name>
+                    <key>nucypher.tokens.staked</key>
+                    <delay>15m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Tokens Total</name>
+                    <key>nucypher.tokens.total</key>
+                    <delay>15m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Version: Git</name>
+                    <key>nucypher.version.git</key>
+                    <delay>5m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff()}=1</expression>
+                            <name>NuCypher: Git Version has changed</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>NuCypher: Version: Local</name>
+                    <key>nucypher.version.local</key>
+                    <delay>5m</delay>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Geth Service CPU Utilization</name>
+                    <key>proc.cpu.util[geth]</key>
+                    <delay>15</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(#3,0)}&gt;80</expression>
+                            <name>NuCypher: Geth Service CPU Load Too High</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>NuCypher: Ursula Service CPU Utilization</name>
+                    <key>proc.cpu.util[nucypher]</key>
+                    <delay>15</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(#3,0)}&gt;80</expression>
+                            <name>NuCypher: Ursula CPU Load Too High</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>NuCypher: Geth Service Memory Use</name>
+                    <key>proc.mem[geth]</key>
+                    <delay>15</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>B</units>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Ursula Service Memory Use</name>
+                    <key>proc.mem[nucypher]</key>
+                    <delay>15</delay>
+                    <units>B</units>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Geth Service Availability</name>
+                    <key>proc.num[geth]</key>
+                    <delay>15</delay>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Service state</name>
+                    </valuemap>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(#1,0)}=0</expression>
+                            <name>NuCypher: Geth Service Is Down</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>NuCypher: Ursula Service Availability</name>
+                    <key>proc.num[nucypher]</key>
+                    <delay>15</delay>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Service state</name>
+                    </valuemap>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(#1,0)}=0</expression>
+                            <name>NuCypher: Ursula Service Is Down</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>NuCypher: Dir Size: Ursula</name>
+                    <key>ursula.dirsize</key>
+                    <delay>30</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Storage</name>
+                        </application>
+                    </applications>
+                </item>
+            </items>
+            <screens>
+                <screen>
+                    <name>NuCypher Screen</name>
+                    <hsize>2</hsize>
+                    <vsize>4</vsize>
+                    <screen_items>
+                        <screen_item>
+                            <resourcetype>0</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <name>Nucypher: Nodes</name>
+                                <host>Template Masternode NuCypher</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>0</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>0</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>0</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <name>Nucypher: My Tokens</name>
+                                <host>Template Masternode NuCypher</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>1</x>
+                            <y>0</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>0</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>0</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <name>Nucypher: Ursula Service Availability</name>
+                                <host>Template Masternode NuCypher</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>1</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>0</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>0</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <name>Nucypher: Geth Service Availability</name>
+                                <host>Template Masternode NuCypher</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>1</x>
+                            <y>1</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>0</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>0</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <name>Nucypher: Ursula Service System Utilization</name>
+                                <host>Template Masternode NuCypher</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>2</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>0</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>0</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <name>Nucypher: Geth Service System Utilization</name>
+                                <host>Template Masternode NuCypher</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>1</x>
+                            <y>2</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>0</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>0</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <name>Nucypher: Ursula 9151 Port Availability</name>
+                                <host>Template Masternode NuCypher</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>0</x>
+                            <y>3</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>0</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                        <screen_item>
+                            <resourcetype>0</resourcetype>
+                            <style>0</style>
+                            <resource>
+                                <name>Nucypher: Geth Block Height</name>
+                                <host>Template Masternode NuCypher</host>
+                            </resource>
+                            <width>500</width>
+                            <height>100</height>
+                            <x>1</x>
+                            <y>3</y>
+                            <colspan>1</colspan>
+                            <rowspan>1</rowspan>
+                            <elements>0</elements>
+                            <valign>0</valign>
+                            <halign>0</halign>
+                            <dynamic>0</dynamic>
+                            <sort_triggers>0</sort_triggers>
+                            <url/>
+                            <application/>
+                            <max_columns>3</max_columns>
+                        </screen_item>
+                    </screen_items>
+                </screen>
+            </screens>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>Nucypher: Geth Block Height</name>
+            <height>400</height>
+            <graph_items>
+                <graph_item>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>6C59DC</color>
+                    <item>
+                        <host>Template Masternode NuCypher</host>
+                        <key>geth.blockheight</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Nucypher: Geth Service Availability</name>
+            <height>400</height>
+            <ymin_type_1>FIXED</ymin_type_1>
+            <graph_items>
+                <graph_item>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>F4511E</color>
+                    <item>
+                        <host>Template Masternode NuCypher</host>
+                        <key>proc.num[geth]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Nucypher: Geth Service System Utilization</name>
+            <height>400</height>
+            <graph_items>
+                <graph_item>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>FF0040</color>
+                    <yaxisside>RIGHT</yaxisside>
+                    <item>
+                        <host>Template Masternode NuCypher</host>
+                        <key>proc.mem[geth]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>4000FF</color>
+                    <item>
+                        <host>Template Masternode NuCypher</host>
+                        <key>proc.cpu.util[geth]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Nucypher: My Tokens</name>
+            <height>400</height>
+            <ymin_type_1>FIXED</ymin_type_1>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>6C59DC</color>
+                    <item>
+                        <host>Template Masternode NuCypher</host>
+                        <key>nucypher.tokens.owned</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>AC8C14</color>
+                    <item>
+                        <host>Template Masternode NuCypher</host>
+                        <key>nucypher.tokens.staked</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>696969</color>
+                    <item>
+                        <host>Template Masternode NuCypher</host>
+                        <key>nucypher.tokens.diff</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Nucypher: Nodes</name>
+            <height>400</height>
+            <ymin_type_1>FIXED</ymin_type_1>
+            <ymax_type_1>ITEM</ymax_type_1>
+            <ymax_item_1>
+                <host>Template Masternode NuCypher</host>
+                <key>nucypher.nodes.total</key>
+            </ymax_item_1>
+            <graph_items>
+                <graph_item>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>F230E0</color>
+                    <item>
+                        <host>Template Masternode NuCypher</host>
+                        <key>nucypher.nodes.total</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>6C59DC</color>
+                    <item>
+                        <host>Template Masternode NuCypher</host>
+                        <key>nucypher.nodes.active</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>611F27</color>
+                    <item>
+                        <host>Template Masternode NuCypher</host>
+                        <key>nucypher.nodes.inactive</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>3</sortorder>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>AC8C14</color>
+                    <item>
+                        <host>Template Masternode NuCypher</host>
+                        <key>nucypher.nodes.pending</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Nucypher: Total Tokens</name>
+            <height>400</height>
+            <ymin_type_1>FIXED</ymin_type_1>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>A54F10</color>
+                    <item>
+                        <host>Template Masternode NuCypher</host>
+                        <key>nucypher.tokens.total</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>FC6EA3</color>
+                    <item>
+                        <host>Template Masternode NuCypher</host>
+                        <key>nucypher.tokens.activetotal</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Nucypher: Ursula 9151 Port Availability</name>
+            <height>400</height>
+            <ymin_type_1>FIXED</ymin_type_1>
+            <graph_items>
+                <graph_item>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>F63100</color>
+                    <item>
+                        <host>Template Masternode NuCypher</host>
+                        <key>net.tcp.service[tcp,,9151]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template Masternode NuCypher</host>
+                        <key>net.tcp.listen[9151]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>2774A4</color>
+                    <yaxisside>RIGHT</yaxisside>
+                    <item>
+                        <host>Template Masternode NuCypher</host>
+                        <key>net.tcp.service.perf[tcp,,9151]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Nucypher: Ursula Service Availability</name>
+            <height>400</height>
+            <ymin_type_1>FIXED</ymin_type_1>
+            <graph_items>
+                <graph_item>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>0080FF</color>
+                    <item>
+                        <host>Template Masternode NuCypher</host>
+                        <key>proc.num[nucypher]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Nucypher: Ursula Service System Utilization</name>
+            <height>400</height>
+            <graph_items>
+                <graph_item>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>FF0040</color>
+                    <yaxisside>RIGHT</yaxisside>
+                    <item>
+                        <host>Template Masternode NuCypher</host>
+                        <key>proc.mem[nucypher]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>4000FF</color>
+                    <item>
+                        <host>Template Masternode NuCypher</host>
+                        <key>proc.cpu.util[nucypher]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+    <value_maps>
+        <value_map>
+            <name>Service state</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Down</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Up</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
