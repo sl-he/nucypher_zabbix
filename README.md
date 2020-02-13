@@ -29,3 +29,12 @@ For correct work all of shell scripts need to have a this cron job:
 
 `*/5 * * * * su $NUCYPHER_USER -c 'cd ~ && source nucypher-venv/bin/activate && nucypher status stakers --provider ~/.ethereum/goerli/geth.ipc --network cassandra > /tmp/nucypher.tmp && cp /tmp/nucypher.tmp /tmp/nucypher.txt'`
 
+## Zabbix template files:
+
+### Template Masternode NuCypher.xml
+
+Main template for a lot of NuCypher parameters for Zabbix monitoring system
+
+### Template Module FAST ICMP Ping.xml
+
+Template for fast ICMP checks (needed for previous template).
