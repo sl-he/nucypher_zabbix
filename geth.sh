@@ -2,11 +2,11 @@
 ##### SCRIPT PARAMETERS #####
 USR=`find /home/*/.local/share/nucypher/ -type f -name ursula.json | awk -F "/" '{print $3}'`
 if [ -z "$USR" ]; then
-   HOME="/root"
+   HOME1="/root"
 else
-   HOME="/home/$USR"
+   HOME1="/home/$USR"
 fi
-IPC="$HOME/.ethereum/goerli/geth.ipc"
+IPC="$HOME1/.ethereum/goerli/geth.ipc"
 
 ##### RUN #####
 BLOCKHEIGHT=`geth --exec "eth.blockNumber" attach $IPC`

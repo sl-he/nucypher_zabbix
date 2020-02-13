@@ -4,12 +4,12 @@ METRIC="$1"
 CACHE_TTL="150"
 USR=`find /home/*/.local/share/nucypher/ -type f -name ursula.json | awk -F "/" '{print $3}'`
 if [ -z "$USR" ]; then
-   HOME="/root"
+   HOME1="/root"
 else
-   HOME="/home/$USR"
+   HOME1="/home/$USR"
 fi
-IPC="$HOME/.ethereum/goerli/geth.ipc"
-ADDRESS=`cat $HOME/.local/share/nucypher/ursula.json | jq .checksum_address| tr -d '"'`
+IPC="$HOME1/.ethereum/goerli/geth.ipc"
+ADDRESS=`cat $HOME1/.local/share/nucypher/ursula.json | jq .checksum_address| tr -d '"'`
 STATSFILE=/tmp/nucypher.txt
 CACHE_FILE="/tmp/nucypher.`echo $STATSFILE | md5sum | cut -d" " -f1`.cache"
 EXEC_TIMEOUT="1"
@@ -45,8 +45,8 @@ BLOCKHEIGHT=`geth --exec "eth.blockNumber" attach $IPC`
 if [ "$BLOCKHEIGHT" = 0 ]; then
   BLOCKHEIGHT=`geth --exec eth.syncing attach $IPC | jq .currentBlock`
 fi
-GETDIRSIZE=`du -bs $HOME/.ethereum | awk '{print $1}'`
-URSULADIRSIZE=`du -bs $HOME/.cache/nucypher | awk '{print $1}'`
+GETDIRSIZE=`du -bs $HOME1/.ethereum | awk '{print $1}'`
+URSULADIRSIZE=`du -bs $HOME1/.cache/nucypher | awk '{print $1}'`
 DATABACKUPDIRSIZE=`du -bs /usr/data_backup | awk '{print $1}'`
 
 ##### PARAMETERS #####
