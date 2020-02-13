@@ -1,11 +1,6 @@
 # nucypher_zabbix
 ## Zabbix Monitoring For NuCypher Masternode
 
-### crontab
-For correct work all of shell scripts need to have a this cron job:
-
-`*/5 * * * * su $NUCYPHER_USER -c 'cd ~ && source nucypher-venv/bin/activate && nucypher status stakers --provider ~/.ethereum/goerli/geth.ipc --network cassandra > /tmp/nucypher.tmp && cp /tmp/nucypher.tmp /tmp/nucypher.txt'`
-
 ## Shell scripts:
 Very needed for monitoring NuCypher masternode in zabbix monitoring system
 
@@ -28,3 +23,9 @@ This script calculates a lot of NuCypher version parameters like local version a
 This file is include in addition to the main zabbix agent configuration file. It should be located in a directory with similar files described in the main configuration file by the parameter (example for Ubuntu Linux):
 
 `Include=/etc/zabbix/zabbix_agentd.d/*.conf`
+
+### crontab job
+For correct work all of shell scripts need to have a this cron job:
+
+`*/5 * * * * su $NUCYPHER_USER -c 'cd ~ && source nucypher-venv/bin/activate && nucypher status stakers --provider ~/.ethereum/goerli/geth.ipc --network cassandra > /tmp/nucypher.tmp && cp /tmp/nucypher.tmp /tmp/nucypher.txt'`
+
