@@ -6,7 +6,8 @@ For correct work all of shell scripts need to have a this cron job:
 
 `*/5 * * * * su $NUCYPHER_USER -c 'cd ~ && source nucypher-venv/bin/activate && nucypher status stakers --provider ~/.ethereum/goerli/geth.ipc --network cassandra > /tmp/nucypher.tmp && cp /tmp/nucypher.tmp /tmp/nucypher.txt'`
 
-## These shell scripts needed for monitoring NuCypher masternode in zabbix monitoring system:
+## Shell scripts:
+Very needed for monitoring NuCypher masternode in zabbix monitoring system
 
 ### geth.sh
 
