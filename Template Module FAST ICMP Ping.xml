@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.4</version>
+    <date>2020-02-13T17:54:15Z</date>
+    <groups>
+        <group>
+            <name>SLHE CODA_VPS</name>
+        </group>
+        <group>
+            <name>SLHE NU_VPS</name>
+        </group>
+        <group>
+            <name>Templates/Modules</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template Module FAST ICMP Ping</template>
+            <name>Template Module FAST ICMP Ping</name>
+            <description>Template Module ICMP Ping version: 0.12</description>
+            <groups>
+                <group>
+                    <name>SLHE CODA_VPS</name>
+                </group>
+                <group>
+                    <name>SLHE NU_VPS</name>
+                </group>
+                <group>
+                    <name>Templates/Modules</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Status</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>ICMP ping</name>
+                    <type>SIMPLE</type>
+                    <key>icmpping</key>
+                    <delay>5</delay>
+                    <history>1w</history>
+                    <applications>
+                        <application>
+                            <name>Status</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Service state</name>
+                    </valuemap>
+                    <triggers>
+                        <trigger>
+                            <expression>{max(#3)}=0</expression>
+                            <name>Unavailable by ICMP ping</name>
+                            <priority>HIGH</priority>
+                            <description>Last value: {ITEM.LASTVALUE1}.
+Last three attempts returned timeout.  Please check device connectivity.</description>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>ICMP loss</name>
+                    <type>SIMPLE</type>
+                    <key>icmppingloss</key>
+                    <delay>5</delay>
+                    <history>1w</history>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>Status</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{min(5m)}&gt;{$ICMP_LOSS_WARN} and {min(5m)}&lt;100</expression>
+                            <name>High ICMP ping loss</name>
+                            <priority>WARNING</priority>
+                            <dependencies>
+                                <dependency>
+                                    <name>Unavailable by ICMP ping</name>
+                                    <expression>{Template Module FAST ICMP Ping:icmpping.max(#3)}=0</expression>
+                                </dependency>
+                            </dependencies>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>ICMP response time</name>
+                    <type>SIMPLE</type>
+                    <key>icmppingsec</key>
+                    <delay>5</delay>
+                    <history>1w</history>
+                    <value_type>FLOAT</value_type>
+                    <units>s</units>
+                    <applications>
+                        <application>
+                            <name>Status</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(5m)}&gt;{$ICMP_RESPONSE_TIME_WARN}</expression>
+                            <name>High ICMP ping response time</name>
+                            <priority>WARNING</priority>
+                            <dependencies>
+                                <dependency>
+                                    <name>High ICMP ping loss</name>
+                                    <expression>{Template Module FAST ICMP Ping:icmppingloss.min(5m)}&gt;{$ICMP_LOSS_WARN} and {Template Module FAST ICMP Ping:icmppingloss.min(5m)}&lt;100</expression>
+                                </dependency>
+                                <dependency>
+                                    <name>Unavailable by ICMP ping</name>
+                                    <expression>{Template Module FAST ICMP Ping:icmpping.max(#3)}=0</expression>
+                                </dependency>
+                            </dependencies>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <macros>
+                <macro>
+                    <macro>{$ICMP_LOSS_WARN}</macro>
+                    <value>20</value>
+                </macro>
+                <macro>
+                    <macro>{$ICMP_RESPONSE_TIME_WARN}</macro>
+                    <value>0.5</value>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>Fast ICMP Ping</name>
+            <height>400</height>
+            <ymin_type_1>FIXED</ymin_type_1>
+            <graph_items>
+                <graph_item>
+                    <drawtype>FILLED_REGION</drawtype>
+                    <color>1A7C11</color>
+                    <yaxisside>RIGHT</yaxisside>
+                    <item>
+                        <host>Template Module FAST ICMP Ping</host>
+                        <key>icmppingloss</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>BOLD_LINE</drawtype>
+                    <color>F63100</color>
+                    <item>
+                        <host>Template Module FAST ICMP Ping</host>
+                        <key>icmppingsec</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+    <value_maps>
+        <value_map>
+            <name>Service state</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Down</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Up</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
