@@ -9,10 +9,7 @@ else
    HOME="/home/$USR"
 fi
 IPC="$HOME/.ethereum/goerli/geth.ipc"
-STAKERADDRESS=`cat $HOME/.local/share/nucypher/ursula.json | jq .checksum_address| tr -d '"'`
-WORKERADDRESS=`cat $HOME/.local/share/nucypher/ursula.json | jq .worker_address | tr -d '"'`
-echo $IPC
-echo $WORKERADDRESS
+ADDRESS=`cat $HOME/.local/share/nucypher/ursula.json | jq .checksum_address| tr -d '"'`
 STATSFILE=/tmp/nucypher.txt
 CACHE_FILE="/tmp/nucypher.`echo $STATSFILE | md5sum | cut -d" " -f1`.cache"
 EXEC_TIMEOUT="1"
@@ -36,10 +33,9 @@ NODESTOTAL=`cat $CACHE_FILE | grep Nickname | sort -u | wc -l`
 NODESACTIVE=`cat $CACHE_FILE | grep Activity | grep Next | wc -l`
 NODESPENDING=`cat $CACHE_FILE | grep Activity | grep Pending | wc -l`
 NODESINACTIVE=`cat $CACHE_FILE | grep Activity | grep -v Pending | grep -v Next | wc -l`
-TOKENSOWNED=`cat $CACHE_FILE | grep $STAKERADDRESS -A 1 | egrep -o "Owned:\s+[0-9]+\.[0-9]+" | awk '{print $2}'`
-TOKENSSTAKED=`cat $CACHE_FILE | grep $STAKERADDRESS -A 1 | egrep -o "Staked:\s+[0-9]+\.[0-9]+" | awk '{print $2}'`
+TOKENSOWNED=`cat $CACHE_FILE | grep $ADDRESS -A 1 | egrep -o "Owned:\s+[0-9]+\.[0-9]+" | awk '{print $2}'`
+TOKENSSTAKED=`cat $CACHE_FILE | grep $ADDRESS -A 1 | egrep -o "Staked:\s+[0-9]+\.[0-9]+" | awk '{print $2}'`
 TOKENSDIFF=`echo $TOKENSOWNED-$TOKENSSTAKED | bc`
-WORKERETHAMOUNT=`geth --exec 'web3.fromWei(eth.getBalance("$WORKERADDRESS"), "ether")' attach $IPC`
 INDEX=`cat $CACHE_FILE | grep NU | egrep -o "Owned:\s+[0-9]+\.[0-9]+" | awk '{print $2}'`
 TOKENSTOTAL=`echo $INDEX | xargs | tr ' ' '+' | bc`
 INDEX1=`cat $CACHE_FILE | grep -e "Next period confirmed" -e Pending -B3 | egrep -o "Staked:\s+[0-9]+\.[0-9]+" | awk '{print $2}' | xargs | tr ' ' '+' | bc`
@@ -52,8 +48,6 @@ fi
 GETDIRSIZE=`du -bs $HOME/.ethereum | awk '{print $1}'`
 URSULADIRSIZE=`du -bs $HOME/.cache/nucypher | awk '{print $1}'`
 DATABACKUPDIRSIZE=`du -bs /usr/data_backup | awk '{print $1}'`
-NUCYPHERVERSIONLOCAL=`cat $HOME/nucypher*env/lib/python3.6/site-packages/nucypher/__about__.py | grep "__version__ =" | egrep -o '".*' | tr -d '"'`
-#NUCYPHERVERSIONGIT=`curl -s "https://api.github.com/repos/nucypher/nucypher/tags" | jq -r '.[0].name' | tr -d 'v'`
 
 ##### PARAMETERS #####
 if [ "${METRIC}" = "nodestotal" ]; then
@@ -83,9 +77,6 @@ fi
 if [ "${METRIC}" = "tokensdiff" ]; then
   echo $TOKENSDIFF
 fi
-if [ "${METRIC}" = "workerethamount" ]; then
-  echo $WORKERETHAMOUNT
-fi
 if [ "${METRIC}" = "period" ]; then
   echo $PERIOD
 fi
@@ -100,12 +91,6 @@ if [ "${METRIC}" = "ursuladirsize" ]; then
 fi
 if [ "${METRIC}" = "databackupdirsize" ]; then
   echo $DATABACKUPDIRSIZE
-fi
-if [ "${METRIC}" = "nucypherversionlocal" ]; then
-  echo $NUCYPHERVERSIONLOCAL
-fi
-if [ "${METRIC}" = "nucypherversiongit" ]; then
-  echo $NUCYPHERVERSIONGIT
 fi
 #
 exit 0
