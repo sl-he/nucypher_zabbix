@@ -9,9 +9,7 @@ if [ -z "$UPDATEFILEPATH" ]; then
 else
    HOME1=`find /home/*/ -type f -name git_update.sh`
 fi
-cat $UPDATEFILEPATH
 GITREPODIR=`echo $UPDATEFILEPATH | rev | cut -d"/" -f2-  | rev`
-cat $GITREPODIR
 LOCALRELEASE=`cat $GITREPODIR/RELEASE`
 ##### RUN #####
 if [ -z "$LATESTRELEASE" ] || [ "$LATESTRELEASE" == "$LOCALRELEASE" ]; then
