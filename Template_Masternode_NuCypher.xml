@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-02-14T20:18:08Z</date>
+    <date>2020-02-14T20:39:35Z</date>
     <groups>
         <group>
             <name>SLHE NU_VPS</name>
@@ -11,6 +11,8 @@
         <template>
             <template>Template Masternode NuCypher</template>
             <name>Template Masternode NuCypher</name>
+            <description>v.0.2:&#13;
+Fix minor bugs, worker ETH balance monitoring added.</description>
             <templates>
                 <template>
                     <name>Template Module FAST ICMP Ping</name>
