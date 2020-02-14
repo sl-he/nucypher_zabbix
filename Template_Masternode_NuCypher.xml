@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-02-13T17:54:03Z</date>
+    <date>2020-02-14T20:18:08Z</date>
     <groups>
         <group>
             <name>SLHE NU_VPS</name>
@@ -399,6 +399,24 @@
                             <name>Storage</name>
                         </application>
                     </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Worker ETH Balance</name>
+                    <key>worker.eth.balance</key>
+                    <delay>15m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(#1,0)}&lt;0.01</expression>
+                            <name>NuCypher: Worker ETH Balance Too Low (&lt;0,01 ETH)</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
                 </item>
             </items>
             <screens>
