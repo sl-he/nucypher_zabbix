@@ -24,8 +24,8 @@ echo "[$DATE_TIME git_update]    ===============================================
 echo "[$DATE_TIME git_update]==> Info: Starting Update nucypher_zabbix git repo to $LATESTRELEASE" >> $LOGFILE
 echo "[$DATE_TIME git_update]    ==============================================================" >> $LOGFILE
 cd $GITREPODIR && git pull
-#cp $GITREPODIR/*.sh /etc/zabbix/scripts/
-#cp $GITREPODIR/nucypher.conf /etc/zabbix/zabbix_agentd.d/
-#chmod 755 /etc/zabbix/scripts/*.sh
-#service zabbix-agent restart
+cp $GITREPODIR/*.sh /etc/zabbix/scripts/
+cp $GITREPODIR/nucypher.conf /etc/zabbix/zabbix_agentd.d/
+chmod 755 /etc/zabbix/scripts/*.sh
+service zabbix-agent restart
 fi
