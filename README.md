@@ -26,13 +26,14 @@ This file is include in addition to the main zabbix agent configuration file. It
 
 ### Zabbix template files
 
-#### Template Masternode NuCypher.xml
-
-Main template for a lot of NuCypher parameters for Zabbix monitoring system
 
 #### Template Module FAST ICMP Ping.xml
 
-Template for fast ICMP checks (needed for previous template).
+Template for fast ICMP checks. Must be installed first, needed for next template.
+
+#### Template Masternode NuCypher.xml
+
+Main template for a lot of NuCypher parameters for Zabbix monitoring system
 
 ### crontab job
 For correct work all of shell scripts need to have a this cron job:
