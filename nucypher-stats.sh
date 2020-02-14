@@ -41,10 +41,6 @@ TOKENSTOTAL=`echo $INDEX | xargs | tr ' ' '+' | bc`
 INDEX1=`cat $CACHE_FILE | grep -e "Next period confirmed" -e Pending -B3 | egrep -o "Staked:\s+[0-9.]+" | awk '{print $2}' | xargs | tr ' ' '+' | bc`
 TOKENSACTIVETOTAL=`echo $INDEX1 | xargs | tr ' ' '+' | bc`
 PERIOD=`echo $NOW_TIME / 86400 | bc`
-BLOCKHEIGHT=`geth --exec "eth.blockNumber" attach $IPC`
-if [ "$BLOCKHEIGHT" = 0 ]; then
-  BLOCKHEIGHT=`geth --exec eth.syncing attach $IPC | jq .currentBlock`
-fi
 GETDIRSIZE=`du -bs $HOME1/.ethereum | awk '{print $1}'`
 URSULADIRSIZE=`du -bs $HOME1/.cache/nucypher | awk '{print $1}'`
 DATABACKUPDIRSIZE=`du -bs /usr/data_backup | awk '{print $1}'`
@@ -79,9 +75,6 @@ if [ "${METRIC}" = "tokensdiff" ]; then
 fi
 if [ "${METRIC}" = "period" ]; then
   echo $PERIOD
-fi
-if [ "${METRIC}" = "blockheight" ]; then
-  echo $BLOCKHEIGHT
 fi
 if [ "${METRIC}" = "gethdirsize" ]; then
   echo $GETDIRSIZE
