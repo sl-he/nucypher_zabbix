@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-02-14T20:39:35Z</date>
+    <date>2020-02-14T20:54:57Z</date>
     <groups>
         <group>
             <name>SLHE NU_VPS</name>
