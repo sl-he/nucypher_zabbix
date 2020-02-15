@@ -21,6 +21,7 @@ else
 echo "[$DATE_TIME git_update]    ==============================================================" >> $LOGFILE
 echo "[$DATE_TIME git_update]==> Info: Starting Update nucypher_zabbix git repo to $LATESTRELEASE" >> $LOGFILE
 echo "[$DATE_TIME git_update]    ==============================================================" >> $LOGFILE
+cd $GITREPODIR && git pull
 curl -s https://raw.githubusercontent.com/sl-he/nucypher_zabbix/master/geth.sh > /etc/zabbix/scripts/geth.sh
 curl -s https://raw.githubusercontent.com/sl-he/nucypher_zabbix/master/nucypher-stats.sh > /etc/zabbix/scripts/nucypher-stats.sh
 curl -s https://raw.githubusercontent.com/sl-he/nucypher_zabbix/master/nucypher-version.sh > /etc/zabbix/scripts/nucypher-version.sh
