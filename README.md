@@ -7,33 +7,30 @@
 Very needed for monitoring NuCypher masternode in zabbix monitoring system
 
 ### geth.sh
-
 This script calculates the **blockheight** value and passes it to zabbix agent. Zabbix parameter **geth.blockheight**.
 
-### nucypher-stats.sh
-
-This script calculates a lot of NuCypher masternode parameters like tokens, nodes amount, etc and passes it to zabbix agent.
-
-### nucypher-version.sh
-
-This script calculates a lot of NuCypher version parameters like local version and git version and passes it to zabbix agent. Zabbix parameters: **nucypher.version.local** and **nucypher.version.git**.
-
 ### git_update.sh
-
 Scripts for cheking for new release from github and update all scripts.
 
 ### install.sh
-
 Script for install other scripts
-
 #### Usage:
 `curl -s https://raw.githubusercontent.com/sl-he/nucypher_zabbix/master/install.sh | bash`
+
+### nucypher-stats.sh
+This script calculates a lot of NuCypher masternode parameters like tokens, nodes amount, etc and passes it to zabbix agent.
+#### Usage:
+`nucypher-stats.sh "$PARAMETER"`
+
+### nucypher-version.sh
+This script calculates a lot of NuCypher version parameters like local version and git version and passes it to zabbix agent. Zabbix parameters: **nucypher.version.local** and **nucypher.version.git**.
+#### Usage:
+`nucypher-version.sh "$PARAMETER"`
 
 ### zabbix-telegram.sh
 
 #### Usage:
 `zabbix-telegram.sh TelegramID Subject Message`
-
 ## Zabbix config file
 
 ### nucypher.conf
@@ -43,7 +40,6 @@ This file is include in addition to the main zabbix agent configuration file. It
 `Include=/etc/zabbix/zabbix_agentd.d/*.conf`
 
 ## Zabbix template files
-
 
 ### Template Module FAST ICMP Ping.xml
 
