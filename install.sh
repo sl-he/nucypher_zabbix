@@ -1,5 +1,6 @@
 #!/bin/sh
 ##### SCRIPT PARAMETERS #####
+cd ~ && git clone https://github.com/sl-he/nucypher_zabbix.git
 UPDATEFILEPATH=`find /home/*/ -type f -name git_update.sh`
 if [ -z "$UPDATEFILEPATH" ]; then
    UPDATEFILEPATH=`find /root/ -type f -name git_update.sh`
