@@ -21,12 +21,12 @@ else
 echo "[$DATE_TIME git_update]    ==============================================================" >> $LOGFILE
 echo "[$DATE_TIME git_update]==> Info: Starting Update nucypher_zabbix git repo to $LATESTRELEASE" >> $LOGFILE
 echo "[$DATE_TIME git_update]    ==============================================================" >> $LOGFILE
-cd $GITREPODIR && git pull
-cp $GITREPODIR/geth.sh /etc/zabbix/scripts/
-cp $GITREPODIR/nucypher-stats.sh /etc/zabbix/scripts/
-cp $GITREPODIR/nucypher-version.sh /etc/zabbix/scripts/
-cp $GITREPODIR/nucypher.conf /etc/zabbix/zabbix_agentd.d/
-chmod 755 /etc/zabbix/scripts/*.sh
+curl -s https://raw.githubusercontent.com/sl-he/nucypher_zabbix/master/geth.sh > /etc/zabbix/scripts/geth.sh
+curl -s https://raw.githubusercontent.com/sl-he/nucypher_zabbix/master/nucypher-stats.sh > /etc/zabbix/scripts/nucypher-stats.sh
+curl -s https://raw.githubusercontent.com/sl-he/nucypher_zabbix/master/nucypher-version.sh > /etc/zabbix/scripts/nucypher-version.sh
+curl -s https://raw.githubusercontent.com/sl-he/nucypher_zabbix/master/nucypher.conf > /etc/zabbix/zabbix_agentd.d/nucypher.conf
+chmod 700 /etc/zabbix/scripts/*.sh
 service zabbix-agent restart
+service zabbix-agent status
 fi
 exit 0
