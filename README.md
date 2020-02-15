@@ -6,8 +6,6 @@
 ## Shell scripts
 Very needed for monitoring NuCypher masternode in zabbix monitoring system
 
-
-
 ### geth.sh
 
 This script calculates the **blockheight** value and passes it to zabbix agent. Zabbix parameter **geth.blockheight**.
@@ -27,8 +25,14 @@ Scripts for cheking for new release from github and update all scripts.
 ### install.sh
 
 Script for install other scripts
-#### Use:
+
+#### Usage:
 `curl -s https://raw.githubusercontent.com/sl-he/nucypher_zabbix/master/install.sh | bash`
+
+### zabbix-telegram.sh
+
+#### Usage:
+`zabbix-telegram.sh TelegramID Subject Message`
 
 ## Zabbix config file
 
