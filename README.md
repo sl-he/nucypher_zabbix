@@ -11,6 +11,8 @@ This script calculates the **blockheight** value and passes it to zabbix agent. 
 
 ### git_update.sh
 Scripts for cheking for new release from github and update all scripts.
+#### Usage:
+`curl -s https://raw.githubusercontent.com/sl-he/nucypher_zabbix/master/git_update.sh | bash`
 
 ### install.sh
 Script for install other scripts
