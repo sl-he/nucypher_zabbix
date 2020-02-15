@@ -43,7 +43,11 @@ TOKENSACTIVETOTAL=`echo $INDEX1 | xargs | tr ' ' '+' | bc`
 PERIOD=`echo $NOW_TIME / 86400 | bc`
 GETDIRSIZE=`du -bs $HOME1/.ethereum | awk '{print $1}'`
 URSULADIRSIZE=`du -bs $HOME1/.cache/nucypher | awk '{print $1}'`
-DATABACKUPDIRSIZE=`du -bs /usr/data_backup | awk '{print $1}'`
+if  [ -d "/usr/data_backup" ]; then
+  DATABACKUPDIRSIZE=`du -bs /usr/data_backup | awk '{print $1}'`
+else
+  DATABACKUPDIRSIZE="0"
+fi
 
 ##### PARAMETERS #####
 if [ "${METRIC}" = "nodestotal" ]; then
