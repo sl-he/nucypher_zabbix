@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-02-18T13:02:59Z</date>
+    <date>2020-02-18T13:10:28Z</date>
     <groups>
         <group>
             <name>SLHE NU_VPS</name>
@@ -12,7 +12,9 @@
             <template>Template Masternode NuCypher</template>
             <name>Template Masternode NuCypher</name>
             <description>v.0.2:&#13;
-Fix minor bugs, worker ETH balance monitoring added.</description>
+Fix minor bugs, Worker ETH balance monitoring added.&#13;
+v.0.4:&#13;
+Fix minor bugs, Staker ETH balance monitoring added.</description>
             <templates>
                 <template>
                     <name>Template Module FAST ICMP Ping</name>
@@ -392,9 +394,8 @@ Fix minor bugs, worker ETH balance monitoring added.</description>
                     </triggers>
                 </item>
                 <item>
-                    <name>NuCypher: Staker ETH Balance</name>
+                    <name>NuCypher: ETH Balance (Staker)</name>
                     <key>staker.eth.balance</key>
-                    <delay>15m</delay>
                     <value_type>FLOAT</value_type>
                     <applications>
                         <application>
@@ -414,7 +415,7 @@ Fix minor bugs, worker ETH balance monitoring added.</description>
                     </applications>
                 </item>
                 <item>
-                    <name>NuCypher: Worker ETH Balance</name>
+                    <name>NuCypher: ETH Balance (Worker)</name>
                     <key>worker.eth.balance</key>
                     <delay>15m</delay>
                     <value_type>FLOAT</value_type>
