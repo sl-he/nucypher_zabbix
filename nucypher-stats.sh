@@ -43,6 +43,12 @@ TOKENSACTIVETOTAL=`echo $INDEX1 | xargs | tr ' ' '+' | bc`
 PERIOD=`echo $NOW_TIME / 86400 | bc`
 GETDIRSIZE=`du -bs $HOME1/.ethereum | awk '{print $1}'`
 URSULADIRSIZE=`du -bs $HOME1/.cache/nucypher | awk '{print $1}'`
+URSULASTATUS=`cat $CACHE_FILE | grep $ADDRESS -A4 | egrep -o "Activity:\s+[a-zA-Z]+" | awk '{print $2}'`
+if [ $URSULASTATUS = "Next" ]; then
+   NODESTATUS=1
+else
+   NODESTATUS=0
+fi
 if  [ -d "/usr/data_backup" ]; then
   DATABACKUPDIRSIZE=`du -bs /usr/data_backup | awk '{print $1}'`
 else
@@ -88,6 +94,9 @@ if [ "${METRIC}" = "ursuladirsize" ]; then
 fi
 if [ "${METRIC}" = "databackupdirsize" ]; then
   echo $DATABACKUPDIRSIZE
+fi
+if [ "${METRIC}" = "nodestatus" ]; then
+  echo $NODESTATUS
 fi
 #
 exit 0
