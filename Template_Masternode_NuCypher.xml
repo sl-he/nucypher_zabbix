@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-02-14T20:39:35Z</date>
+    <date>2020-02-18T13:02:59Z</date>
     <groups>
         <group>
             <name>SLHE NU_VPS</name>
@@ -390,6 +390,17 @@ Fix minor bugs, worker ETH balance monitoring added.</description>
                             <priority>HIGH</priority>
                         </trigger>
                     </triggers>
+                </item>
+                <item>
+                    <name>NuCypher: Staker ETH Balance</name>
+                    <key>staker.eth.balance</key>
+                    <delay>15m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
                 </item>
                 <item>
                     <name>NuCypher: Dir Size: Ursula</name>
