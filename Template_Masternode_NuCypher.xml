@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-02-18T13:10:28Z</date>
+    <date>2020-02-19T00:50:26Z</date>
     <groups>
         <group>
             <name>SLHE NU_VPS</name>
@@ -33,6 +33,9 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                     <name>Nucypher</name>
                 </application>
                 <application>
+                    <name>NU Worklock</name>
+                </application>
+                <application>
                     <name>Service Status</name>
                 </application>
             </applications>
@@ -59,7 +62,7 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                     </applications>
                     <triggers>
                         <trigger>
-                            <expression>{delta(#15,0)}=0</expression>
+                            <expression>{delta(#3,0)}=0</expression>
                             <name>NuCypher: Geth Stucks</name>
                             <priority>AVERAGE</priority>
                         </trigger>
@@ -188,9 +191,29 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                     </applications>
                 </item>
                 <item>
+                    <name>NuCypher: Node Status</name>
+                    <key>nucypher.nodestatus</key>
+                    <delay>5m</delay>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Service state</name>
+                    </valuemap>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(#15,0)}=0</expression>
+                            <name>NuCypher: Ursula Node Status Is Down</name>
+                            <priority>DISASTER</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
                     <name>NuCypher: Period</name>
                     <key>nucypher.period</key>
-                    <delay>15m</delay>
+                    <delay>5m</delay>
                     <value_type>FLOAT</value_type>
                     <applications>
                         <application>
@@ -201,7 +224,7 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                 <item>
                     <name>NuCypher: Tokens Total (Active Stakes)</name>
                     <key>nucypher.tokens.activetotal</key>
-                    <delay>15m</delay>
+                    <delay>5m</delay>
                     <value_type>FLOAT</value_type>
                     <applications>
                         <application>
@@ -212,7 +235,7 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                 <item>
                     <name>NuCypher: Tokens Rewards</name>
                     <key>nucypher.tokens.diff</key>
-                    <delay>15m</delay>
+                    <delay>5m</delay>
                     <value_type>FLOAT</value_type>
                     <applications>
                         <application>
@@ -231,7 +254,7 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                 <item>
                     <name>NuCypher: Tokens Owned</name>
                     <key>nucypher.tokens.owned</key>
-                    <delay>15m</delay>
+                    <delay>5m</delay>
                     <value_type>FLOAT</value_type>
                     <applications>
                         <application>
@@ -242,7 +265,7 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                 <item>
                     <name>NuCypher: Tokens Staked</name>
                     <key>nucypher.tokens.staked</key>
-                    <delay>15m</delay>
+                    <delay>5m</delay>
                     <value_type>FLOAT</value_type>
                     <applications>
                         <application>
@@ -253,7 +276,7 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                 <item>
                     <name>NuCypher: Tokens Total</name>
                     <key>nucypher.tokens.total</key>
-                    <delay>15m</delay>
+                    <delay>5m</delay>
                     <value_type>FLOAT</value_type>
                     <applications>
                         <application>
@@ -394,9 +417,11 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                     </triggers>
                 </item>
                 <item>
-                    <name>NuCypher: ETH Balance (Staker)</name>
+                    <name>NuCypher: ETH Staker Balance</name>
                     <key>staker.eth.balance</key>
+                    <delay>5m</delay>
                     <value_type>FLOAT</value_type>
+                    <units>ETH</units>
                     <applications>
                         <application>
                             <name>Nucypher</name>
@@ -415,10 +440,11 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                     </applications>
                 </item>
                 <item>
-                    <name>NuCypher: ETH Balance (Worker)</name>
+                    <name>NuCypher: ETH Worker Balance</name>
                     <key>worker.eth.balance</key>
-                    <delay>15m</delay>
+                    <delay>5m</delay>
                     <value_type>FLOAT</value_type>
+                    <units>ETH</units>
                     <applications>
                         <application>
                             <name>Nucypher</name>
@@ -431,6 +457,175 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                             <priority>HIGH</priority>
                         </trigger>
                     </triggers>
+                </item>
+                <item>
+                    <name>NuCypher: Worklock: Staker Available Refund</name>
+                    <key>worklock.availablerefund</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>NU Worklock</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Worklock: Refund Boosting</name>
+                    <key>worklock.boostingrefund</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>NU Worklock</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Worklock: Deposit Rate (NU per ETH)</name>
+                    <key>worklock.depositrate</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>NU Worklock</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Worklock: ETH Pool (ETH)</name>
+                    <key>worklock.ethpool</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>NU Worklock</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Worklock: ETH Supply (ETH)</name>
+                    <key>worklock.ethsupply</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>NU Worklock</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Worklock: Lot Size</name>
+                    <key>worklock.lotsize</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>NU Worklock</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Worklock: Refund Rate</name>
+                    <key>worklock.refundrate</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>NU Worklock</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Worklock: Refund Slowing</name>
+                    <key>worklock.slowingrefund</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>NU Worklock</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Worklock: Staker Total Bid</name>
+                    <key>worklock.totalbid</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>ETH</units>
+                    <applications>
+                        <application>
+                            <name>NU Worklock</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.000000000000000001</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>NuCypher: Worklock: Unclaimed Tokens</name>
+                    <key>worklock.unclaimedtokens</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>NU</units>
+                    <applications>
+                        <application>
+                            <name>NU Worklock</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Worklock: Staker Work Completed</name>
+                    <key>worklock.workcompleted</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>NU Worklock</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.000000000000000001</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>NuCypher: Worklock: Staker Work Refunded</name>
+                    <key>worklock.workrefunded</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>NU Worklock</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.000000000000000001</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>NuCypher: Worklock: Staker Work Remaining</name>
+                    <key>worklock.workremaining</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>NU Worklock</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <params>0.000000000000000001</params>
+                        </step>
+                    </preprocessing>
                 </item>
             </items>
             <screens>
