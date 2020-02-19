@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-02-19T00:50:26Z</date>
+    <date>2020-02-19T11:26:19Z</date>
     <groups>
         <group>
             <name>SLHE NU_VPS</name>
@@ -377,6 +377,26 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                     </applications>
                 </item>
                 <item>
+                    <name>NuCypher: Ursula Service Availability</name>
+                    <key>proc.num[,,,nucypher ursula run]</key>
+                    <delay>15</delay>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Service state</name>
+                    </valuemap>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(#1,0)}=0</expression>
+                            <name>NuCypher: Ursula Service Is Down</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
                     <name>NuCypher: Geth Service Availability</name>
                     <key>proc.num[geth]</key>
                     <delay>15</delay>
@@ -392,26 +412,6 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                         <trigger>
                             <expression>{last(#1,0)}=0</expression>
                             <name>NuCypher: Geth Service Is Down</name>
-                            <priority>HIGH</priority>
-                        </trigger>
-                    </triggers>
-                </item>
-                <item>
-                    <name>NuCypher: Ursula Service Availability</name>
-                    <key>proc.num[nucypher]</key>
-                    <delay>15</delay>
-                    <applications>
-                        <application>
-                            <name>Nucypher</name>
-                        </application>
-                    </applications>
-                    <valuemap>
-                        <name>Service state</name>
-                    </valuemap>
-                    <triggers>
-                        <trigger>
-                            <expression>{last(#1,0)}=0</expression>
-                            <name>NuCypher: Ursula Service Is Down</name>
                             <priority>HIGH</priority>
                         </trigger>
                     </triggers>
@@ -1017,7 +1017,7 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                     <color>0080FF</color>
                     <item>
                         <host>Template Masternode NuCypher</host>
-                        <key>proc.num[nucypher]</key>
+                        <key>proc.num[,,,nucypher ursula run]</key>
                     </item>
                 </graph_item>
             </graph_items>
