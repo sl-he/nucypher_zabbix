@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-02-19T16:17:21Z</date>
+    <date>2020-02-20T16:56:41Z</date>
     <groups>
         <group>
             <name>SLHE NU_VPS</name>
@@ -62,7 +62,7 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                     </applications>
                     <triggers>
                         <trigger>
-                            <expression>{delta(#3,0)}=0</expression>
+                            <expression>{delta(#5,0)}=0</expression>
                             <name>NuCypher: Geth Stucks</name>
                             <priority>AVERAGE</priority>
                         </trigger>
@@ -119,7 +119,7 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                     </preprocessing>
                     <triggers>
                         <trigger>
-                            <expression>{last(#1,0)}&gt;500</expression>
+                            <expression>{avg(#10,0)}&gt;1000</expression>
                             <name>NuCypher: Ursula Is Very Slow</name>
                             <priority>HIGH</priority>
                         </trigger>
@@ -194,17 +194,15 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                     <name>NuCypher: Node Status</name>
                     <key>nucypher.nodestatus</key>
                     <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
                     <applications>
                         <application>
                             <name>Nucypher</name>
                         </application>
                     </applications>
-                    <valuemap>
-                        <name>Service state</name>
-                    </valuemap>
                     <triggers>
                         <trigger>
-                            <expression>{avg(#15,0)}=0</expression>
+                            <expression>{avg(#4,0)}=0</expression>
                             <name>NuCypher: Ursula Node Status Is Down</name>
                             <priority>DISASTER</priority>
                         </trigger>
