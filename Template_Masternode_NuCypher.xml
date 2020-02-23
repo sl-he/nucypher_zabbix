@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-02-20T16:56:41Z</date>
+    <date>2020-02-23T15:33:00Z</date>
     <groups>
         <group>
             <name>SLHE NU_VPS</name>
@@ -78,6 +78,23 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                             <name>Storage</name>
                         </application>
                     </applications>
+                </item>
+                <item>
+                    <name>NuCypher: Geth Peer Count</name>
+                    <key>geth.peercount</key>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Nucypher</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{avg(#5,0)}&lt;3</expression>
+                            <name>NuCypher: Geth Peer Count Too Small</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
                 </item>
                 <item>
                     <name>NuCypher: Ursula 9151 Port Listening</name>
@@ -353,7 +370,7 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                 </item>
                 <item>
                     <name>NuCypher: Geth Service Memory Use</name>
-                    <key>proc.mem[geth]</key>
+                    <key>proc.mem[geth,,,,rss]</key>
                     <delay>15</delay>
                     <value_type>FLOAT</value_type>
                     <units>B</units>
@@ -365,7 +382,7 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                 </item>
                 <item>
                     <name>NuCypher: Ursula Service Memory Use</name>
-                    <key>proc.mem[nucypher]</key>
+                    <key>proc.mem[nucypher,,,,rss]</key>
                     <delay>15</delay>
                     <units>B</units>
                     <applications>
@@ -853,7 +870,7 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                     <yaxisside>RIGHT</yaxisside>
                     <item>
                         <host>Template Masternode NuCypher</host>
-                        <key>proc.mem[geth]</key>
+                        <key>proc.mem[geth,,,,rss]</key>
                     </item>
                 </graph_item>
                 <graph_item>
@@ -1030,7 +1047,7 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                     <yaxisside>RIGHT</yaxisside>
                     <item>
                         <host>Template Masternode NuCypher</host>
-                        <key>proc.mem[nucypher]</key>
+                        <key>proc.mem[nucypher,,,,rss]</key>
                     </item>
                 </graph_item>
                 <graph_item>
