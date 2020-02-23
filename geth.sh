@@ -20,6 +20,7 @@ WORKERETHBALANCE=`echo $WEIWORKERETHBALANCE / 1000000000000000000 | bc -l`
 sleep 1
 WEISTAKERETHBALANCE=`curl -s 'https://api-goerli.etherscan.io/api?module=account&action=balance&address='$STAKERADDRESS'&tag=latest' -H 'dnt: 1' -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36' | jq .result | tr -d '"'`
 STAKERETHBALANCE=`echo $WEISTAKERETHBALANCE / 1000000000000000000 | bc -l`
+GETHPEERCOUNT=$(geth attach $IPC --exec net.peerCount)
 if [ "${METRIC}" = "gethblockheight" ]; then
   echo $BLOCKHEIGHT
 fi
@@ -28,5 +29,8 @@ if [ "${METRIC}" = "workerethbalance" ]; then
 fi
 if [ "${METRIC}" = "stakerethbalance" ]; then
   echo $STAKERETHBALANCE
+fi
+if [ "${METRIC}" = "gethpeercount" ]; then
+  echo $GETHPEERCOUNT
 fi
 exit 0
