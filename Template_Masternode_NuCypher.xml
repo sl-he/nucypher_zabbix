@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-02-23T15:33:00Z</date>
+    <date>2020-02-24T11:26:39Z</date>
     <groups>
         <group>
             <name>SLHE NU_VPS</name>
@@ -110,7 +110,7 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                     </valuemap>
                     <triggers>
                         <trigger>
-                            <expression>{last(#1,0)}=0</expression>
+                            <expression>{avg(#6,0)}=0</expression>
                             <name>NuCypher: Ursula 9151 Port Is Down</name>
                             <priority>HIGH</priority>
                         </trigger>
@@ -157,7 +157,7 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                     </valuemap>
                     <triggers>
                         <trigger>
-                            <expression>{last(#1,0)}=0</expression>
+                            <expression>{avg(#6,0)}=0</expression>
                             <name>NuCypher: Ursula 9151 Port Is Not Available</name>
                             <priority>HIGH</priority>
                         </trigger>
@@ -219,7 +219,7 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                     </applications>
                     <triggers>
                         <trigger>
-                            <expression>{avg(#4,0)}=0</expression>
+                            <expression>{avg(#6,0)}=0</expression>
                             <name>NuCypher: Ursula Node Status Is Down</name>
                             <priority>DISASTER</priority>
                         </trigger>
@@ -405,7 +405,7 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                     </valuemap>
                     <triggers>
                         <trigger>
-                            <expression>{last(#1,0)}=0</expression>
+                            <expression>{avg(#6,0)}=0</expression>
                             <name>NuCypher: Ursula Service Is Down</name>
                             <priority>HIGH</priority>
                         </trigger>
@@ -425,7 +425,7 @@ Fix minor bugs, Staker ETH balance monitoring added.</description>
                     </valuemap>
                     <triggers>
                         <trigger>
-                            <expression>{last(#1,0)}=0</expression>
+                            <expression>{avg(#6,0)}=0</expression>
                             <name>NuCypher: Geth Service Is Down</name>
                             <priority>HIGH</priority>
                         </trigger>
