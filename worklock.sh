@@ -21,8 +21,10 @@ elif [ $DELTA_TIME -gt $CACHE_TTL ]; then
 fi
 WEIETHPOOL=`cat $CACHE_FILE | grep "ETH Pool" | egrep -o "[0-9]+"`
 ETHPOOL=`echo $WEIETHPOOL / 1000000000000000000 | bc -l`
-WEIETHSUPPLY=`cat $CACHE_FILE | grep "ETH Supply" | egrep -o "[0-9]+"`
+WEIETHSUPPLY=`cat $CACHE_FILE | grep "ETH Supply" | grep -v Bonus | egrep -o "[0-9]+"`
 ETHSUPPLY=`echo $WEIETHSUPPLY / 1000000000000000000 | bc -l`
+WEIBONUSETHSUPPLY=`cat $CACHE_FILE | grep "Bonus ETH Supply" | egrep -o "[0-9]+"`
+BONUSETHSUPPLY=`echo $WEIBONUSETHSUPPLY / 1000000000000000000 | bc -l`
 LOTSIZE=`cat $CACHE_FILE | grep "Lot Size" | egrep -o "[0-9.]+\s+NU" | awk '{print $1}'`
 UNCLAIMEDTOKENS=`cat $CACHE_FILE | grep "Unclaimed Tokens" | egrep -o "[0-9.]+$"`
 BOOSTINGREFUND=`cat $CACHE_FILE | grep "Boosting Refund" | egrep -o "[0-9.]+$"`
@@ -40,6 +42,9 @@ if [ "${METRIC}" = "ethpool" ]; then
 fi
 if [ "${METRIC}" = "ethsupply" ]; then
   echo $ETHSUPPLY
+fi
+if [ "${METRIC}" = "bonusethsupply" ]; then
+  echo $BONUSETHSUPPLY
 fi
 if [ "${METRIC}" = "lotsize" ]; then
   echo $LOTSIZE
