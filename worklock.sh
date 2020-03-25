@@ -19,9 +19,9 @@ if [ $DELTA_TIME -lt $EXEC_TIMEOUT ]; then
 elif [ $DELTA_TIME -gt $CACHE_TTL ]; then
   cp $STATSFILE $CACHE_FILE
 fi
-WEIETHPOOL=`cat $CACHE_FILE | grep "ETH Pool" | egrep -o "[0-9]"`
+WEIETHPOOL=`cat $CACHE_FILE | grep "ETH Pool" | egrep -o "[0-9]+"`
 ETHPOOL=`echo $WEIETHPOOL / 1000000000000000000 | bc -l`
-WEIETHSUPPLY=`cat $CACHE_FILE | grep "ETH Supply" | egrep -o "[0-9]"`
+WEIETHSUPPLY=`cat $CACHE_FILE | grep "ETH Supply" | egrep -o "[0-9]+"`
 ETHSUPPLY=`echo $WEIETHSUPPLY / 1000000000000000000 | bc -l`
 LOTSIZE=`cat $CACHE_FILE | grep "Lot Size" | egrep -o "[0-9.]+\s+NU" | awk '{print $1}'`
 UNCLAIMEDTOKENS=`cat $CACHE_FILE | grep "Unclaimed Tokens" | egrep -o "[0-9.]+$"`
