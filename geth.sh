@@ -15,21 +15,21 @@ BLOCKHEIGHT=`geth --exec "eth.blockNumber" attach $IPC`
 if [ "$BLOCKHEIGHT" = 0 ]; then
   BLOCKHEIGHT=`geth --exec eth.syncing attach $IPC | jq .currentBlock`
 fi
-WEIWORKERETHBALANCE=`curl -s 'https://api-goerli.etherscan.io/api?module=account&action=balance&address='$WORKERADDRESS'&tag=latest' -H 'dnt: 1' -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36' | jq .result | tr -d '"'`
-WORKERETHBALANCE=`echo $WEIWORKERETHBALANCE / 1000000000000000000 | bc -l`
-sleep 3
-WEISTAKERETHBALANCE=`curl -s 'https://api-goerli.etherscan.io/api?module=account&action=balance&address='$STAKERADDRESS'&tag=latest' -H 'dnt: 1' -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36' | jq .result | tr -d '"'`
-STAKERETHBALANCE=`echo $WEISTAKERETHBALANCE / 1000000000000000000 | bc -l`
+#WEIWORKERETHBALANCE=`curl -s 'https://api-goerli.etherscan.io/api?module=account&action=balance&address='$WORKERADDRESS'&tag=latest' -H 'dnt: 1' -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36' | jq .result | tr -d '"'`
+#WORKERETHBALANCE=`echo $WEIWORKERETHBALANCE / 1000000000000000000 | bc -l`
+#sleep 3
+#WEISTAKERETHBALANCE=`curl -s 'https://api-goerli.etherscan.io/api?module=account&action=balance&address='$STAKERADDRESS'&tag=latest' -H 'dnt: 1' -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36' | jq .result | tr -d '"'`
+#STAKERETHBALANCE=`echo $WEISTAKERETHBALANCE / 1000000000000000000 | bc -l`
 GETHPEERCOUNT=$(geth attach $IPC --exec net.peerCount)
 if [ "${METRIC}" = "gethblockheight" ]; then
   echo $BLOCKHEIGHT
 fi
-if [ "${METRIC}" = "workerethbalance" ]; then
-  echo $WORKERETHBALANCE
-fi
-if [ "${METRIC}" = "stakerethbalance" ]; then
-  echo $STAKERETHBALANCE
-fi
+#if [ "${METRIC}" = "workerethbalance" ]; then
+#  echo $WORKERETHBALANCE
+#fi
+#if [ "${METRIC}" = "stakerethbalance" ]; then
+#  echo $STAKERETHBALANCE
+#fi
 if [ "${METRIC}" = "gethpeercount" ]; then
   echo $GETHPEERCOUNT
 fi
