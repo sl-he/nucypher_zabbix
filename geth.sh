@@ -11,13 +11,11 @@ WORKERADDRESS=`cat $HOME1/.local/share/nucypher/ursula.json | jq .worker_address
 STAKERADDRESS=`cat $HOME1/.local/share/nucypher/ursula.json | jq .checksum_address| tr -d '"'`
 ##### RUN #####
 if [ "${METRIC}" = "workerethbalance" ]; then
-  WEIWORKERETHBALANCE=`curl -s 'https://api-goerli.etherscan.io/api?module=account&action=balance&address='$WORKERADDRESS'&tag=latest' -H 'dnt: 1' -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36' | jq .result | tr -d '"'`
-  WORKERETHBALANCE=`echo $WEIWORKERETHBALANCE / 1000000000000000000 | bc -l`
+  WORKERETHBALANCE=`python /etc/zabbix/scripts/check_balance.py $WORKERADDRESS`
   echo $WORKERETHBALANCE
 fi
 if [ "${METRIC}" = "stakerethbalance" ]; then
-  WEISTAKERETHBALANCE=`curl -s 'https://api-goerli.etherscan.io/api?module=account&action=balance&address='$STAKERADDRESS'&tag=latest' -H 'dnt: 1' -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36' | jq .result | tr -d '"'`
-  STAKERETHBALANCE=`echo $WEISTAKERETHBALANCE / 1000000000000000000 | bc -l`
+  STAKERETHBALANCE=`python /etc/zabbix/scripts/check_balance.py $STAKERADDRESS`
   echo $STAKERETHBALANCE
 fi
 exit 0
